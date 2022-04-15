@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj" />
+    <ProjectReference Include="..\NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj" />
+    <ProjectReference Include="..\NPointeuse.Services.Mock\NPointeuse.Services.Mock.csproj" />
+    <ProjectReference Include="..\NPointeuse.Services\NPointeuse.Services.csproj" />
+  </ItemGroup>
+
+</Project>

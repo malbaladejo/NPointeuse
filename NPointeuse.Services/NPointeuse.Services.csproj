@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+	
+<ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+    <_Parameter1>NPointeuse.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+	
+<ItemGroup>
+  <ProjectReference Include="..\NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj" />
+</ItemGroup>
+
+</Project>
