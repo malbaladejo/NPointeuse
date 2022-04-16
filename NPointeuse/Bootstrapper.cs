@@ -1,6 +1,7 @@
 ﻿using NPointeuse.Infra.IOC;
 using NPointeuse.Infra.IOC.Unity;
 using NPointeuse.Services;
+using NPointeuse.Services.LocalFile.Impl;
 using NPointeuse.Services.Mock;
 
 namespace NPointeuse
@@ -13,7 +14,8 @@ namespace NPointeuse
             var container = simpleInjectBootstrapper.Initialize();
             
             container.GetInstance<ServiceBootstrapper>().Initialize();
-            container.GetInstance<ServiceMockBootstrapper>().Initialize();
+            //   container.GetInstance<ServiceMockBootstrapper>().Initialize();
+            container.GetInstance<ServiceLocalFileBootstrapper>().Initialize();            
 
             container.Register<IConsoleWriter, ConsoleWriter>();
             container.Register<IConsoleProgressBar, ConsoleProgressBar>();

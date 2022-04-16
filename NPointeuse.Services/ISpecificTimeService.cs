@@ -5,6 +5,8 @@ namespace NPointeuse.Services
 {
     public interface ISpecificExpectedTimeDataService
     {
-        IReadOnlyCollection<ISpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate);
+        IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate);
+
+        void Save(SpecificExpectedTime time);
     }
 }

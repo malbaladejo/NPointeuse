@@ -5,9 +5,17 @@ namespace NPointeuse.Services.Mock
 {
     internal class SpecificExpectedTimeDataServiceMock : ISpecificExpectedTimeDataService
     {
-        public IReadOnlyCollection<ISpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate)
+        private readonly List<SpecificExpectedTime> times = new List<SpecificExpectedTime>();
+
+        public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate)
+        => this.times;
+
+        public void Save(SpecificExpectedTime time)
         {
-            return new ISpecificExpectedTime[0];
+            if (time.Id != null) return;
+
+            time.Id = DateTime.Now.Ticks;
+            this.times.Add(time);
         }
     }
 }

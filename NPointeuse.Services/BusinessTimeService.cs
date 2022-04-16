@@ -43,7 +43,7 @@ namespace NPointeuse.Services
 
         private TimeSpan GetDurations(DateTime beginDate, DateTime endDate)
         {
-            var ticks = this.timeDataService.GetRealDurationsForDatePeriod(beginDate, endDate)
+            var ticks = this.timeDataService.GetDateRangeForPeriod(beginDate, endDate)
                                         .Sum(d => d.GetDuration().Ticks);
 
             return TimeSpan.FromTicks(ticks);

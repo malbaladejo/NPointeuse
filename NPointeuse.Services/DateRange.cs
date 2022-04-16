@@ -7,7 +7,7 @@ namespace NPointeuse.Services
         private DateTime beginDate;
         private DateTime? endDate;
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public DateTime BeginDate
         {

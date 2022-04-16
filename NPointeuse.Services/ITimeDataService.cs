@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace NPointeuse.Services
 {
     public interface ITimeDataService {
-        IReadOnlyCollection<DateRange> GetRealDurationsForDatePeriod(DateTime beginDateTime, DateTime endDateTime);
+        IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime);
         void Start();
         void Stop();
 

@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj" />
     <ProjectReference Include="..\NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj" />
+    <ProjectReference Include="..\NPointeuse.Services.LocalFile.Impl\NPointeuse.Services.LocalFile.Impl.csproj" />
     <ProjectReference Include="..\NPointeuse.Services.Mock\NPointeuse.Services.Mock.csproj" />
     <ProjectReference Include="..\NPointeuse.Services\NPointeuse.Services.csproj" />
   </ItemGroup>

@@ -29,7 +29,7 @@ namespace NPointeuse.Services.Mock
             times.Add(new DateRange { Id = id, BeginDate = today, EndDate = today.AddMinutes(5*60 + 12) });
         }
 
-        public IReadOnlyCollection<DateRange> GetRealDurationsForDatePeriod(DateTime beginDateTime, DateTime endDateTime)
+        public IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime)
         {
             var realTimes = this.times.Where(t => t.BeginDate >= beginDateTime.BeginOfDay() && t.EndDate <= endDateTime.EndOfDay())
                 .ToList();

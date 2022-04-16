@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Infra.IOC.Simple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Infra.IOC.Unity", "NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj", "{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Services.LocalFile.Impl", "NPointeuse.Services.LocalFile.Impl\NPointeuse.Services.LocalFile.Impl.csproj", "{9552ED86-B34F-432E-8BB0-CDE636C4F154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

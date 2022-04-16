@@ -25,7 +25,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var timeDataService = Substitute.For<ITimeDataService>();
-            timeDataService.GetRealDurationsForDatePeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
+            timeDataService.GetDateRangeForPeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(new[] {
                     new DateRange{ BeginDate = DateTime.Today.AddHours(8), EndDate = DateTime.Today.AddHours(12) },
                     new DateRange{ BeginDate = DateTime.Today.AddHours(14), EndDate = DateTime.Today.AddHours(18) }});
@@ -37,7 +37,7 @@ namespace NPointeuse.Services.Tests
 
             // Assert
             Assert.AreEqual(TimeSpan.FromHours(8), duration);
-            timeDataService.Received(1).GetRealDurationsForDatePeriod(DateTime.Today, DateTime.Today.EndOfDay());
+            timeDataService.Received(1).GetDateRangeForPeriod(DateTime.Today, DateTime.Today.EndOfDay());
         }
 
         [TestMethod()]
@@ -45,7 +45,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var timeDataService = Substitute.For<ITimeDataService>();
-            timeDataService.GetRealDurationsForDatePeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
+            timeDataService.GetDateRangeForPeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(new[] {
                     new DateRange{ BeginDate = DateTime.Today.AddHours(8), EndDate = DateTime.Today.AddHours(12) },
                     new DateRange{ BeginDate = DateTime.Today.AddHours(14), EndDate = DateTime.Today.AddHours(18) }});
@@ -57,7 +57,7 @@ namespace NPointeuse.Services.Tests
 
             // Assert
             Assert.AreEqual(TimeSpan.FromHours(8), duration);
-            timeDataService.Received(1).GetRealDurationsForDatePeriod(
+            timeDataService.Received(1).GetDateRangeForPeriod(
                 DateTime.Today.FirstDayOfWeek(),
                 DateTime.Today.LastDayOfWeek().EndOfDay());
         }
@@ -67,7 +67,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var timeDataService = Substitute.For<ITimeDataService>();
-            timeDataService.GetRealDurationsForDatePeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
+            timeDataService.GetDateRangeForPeriod(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(new[] {
                     new DateRange{ BeginDate = DateTime.Today.AddHours(8), EndDate = DateTime.Today.AddHours(12) },
                     new DateRange{ BeginDate = DateTime.Today.AddHours(14), EndDate = DateTime.Today.AddHours(18) }});
@@ -79,7 +79,7 @@ namespace NPointeuse.Services.Tests
 
             // Assert
             Assert.AreEqual(TimeSpan.FromHours(8), duration);
-            timeDataService.Received(1).GetRealDurationsForDatePeriod(
+            timeDataService.Received(1).GetDateRangeForPeriod(
                 DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
         }
 
@@ -89,7 +89,7 @@ namespace NPointeuse.Services.Tests
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
-                .Returns(new ISpecificExpectedTime[0]);
+                .Returns(new SpecificExpectedTime[0]);
 
             var stardardDurations = new Dictionary<DayOfWeek, TimeSpan>
             {
@@ -121,7 +121,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
-            var specificTimes = new ISpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
+            var specificTimes = new SpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
 
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(specificTimes);
@@ -142,7 +142,7 @@ namespace NPointeuse.Services.Tests
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
-                .Returns(new ISpecificExpectedTime[0]);
+                .Returns(new SpecificExpectedTime[0]);
 
             var stardardDurations = new Dictionary<DayOfWeek, TimeSpan>
             {
@@ -173,7 +173,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
-            var specificTimes = new ISpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
+            var specificTimes = new SpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
 
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(specificTimes);
@@ -194,7 +194,7 @@ namespace NPointeuse.Services.Tests
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
-                .Returns(new ISpecificExpectedTime[0]);
+                .Returns(new SpecificExpectedTime[0]);
 
             var stardardDurations = new Dictionary<DayOfWeek, TimeSpan>
             {
@@ -224,7 +224,7 @@ namespace NPointeuse.Services.Tests
         {
             // Arrange
             var specificService = Substitute.For<ISpecificExpectedTimeDataService>();
-            var specificTimes = new ISpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
+            var specificTimes = new SpecificExpectedTime[] { CreateSpecificExpectedTime(DateTime.Today, TimeSpan.FromHours(5)) };
 
             specificService.GetExpectedDurations(Arg.Any<DateTime>(), Arg.Any<DateTime>())
                 .Returns(specificTimes);
@@ -236,24 +236,6 @@ namespace NPointeuse.Services.Tests
 
             // Assert
             specificService.Received(1).GetExpectedDurations(DateTime.Today.AddMonths(-2), DateTime.Today.LastDayOfWeek().EndOfDay());
-        }
-
-        [TestMethod()]
-        public void IsRunningTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void StartTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void StopTest()
-        {
-            Assert.Fail();
         }
 
         private static BusinessTimeService CreateTimeService(
@@ -285,9 +267,9 @@ namespace NPointeuse.Services.Tests
             return standardService;
         }
 
-        private static ISpecificExpectedTime CreateSpecificExpectedTime(DateTime date, TimeSpan duration)
+        private static SpecificExpectedTime CreateSpecificExpectedTime(DateTime date, TimeSpan duration)
         {
-            var time = Substitute.For<ISpecificExpectedTime>();
+            var time = Substitute.For<SpecificExpectedTime>();
             time.Date.Returns(date);
             time.Duration.Returns(duration);
             return time;
