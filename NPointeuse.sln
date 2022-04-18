@@ -11,13 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPointeuse.Tests", "NPointe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPointeuse.Services.Mock", "NPointeuse.Services.Mock\NPointeuse.Services.Mock.csproj", "{09EC7046-57CF-489A-9EED-163797EF0595}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Infra.IOC", "NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj", "{D5373C28-94E5-4834-BD5E-F35C26999FDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPointeuse.Infra.IOC", "NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj", "{D5373C28-94E5-4834-BD5E-F35C26999FDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Infra.IOC.SimpleInject", "NPointeuse.Infra.IOC.SimpleInject\NPointeuse.Infra.IOC.SimpleInject.csproj", "{FE6661F4-3CC0-4E5E-ACE9-C07C5D10D697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPointeuse.Infra.IOC.Unity", "NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj", "{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Infra.IOC.Unity", "NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj", "{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPointeuse.Services.LocalFile.Impl", "NPointeuse.Services.LocalFile.Impl\NPointeuse.Services.LocalFile.Impl.csproj", "{9552ED86-B34F-432E-8BB0-CDE636C4F154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Services.LocalFile.Impl", "NPointeuse.Services.LocalFile.Impl\NPointeuse.Services.LocalFile.Impl.csproj", "{9552ED86-B34F-432E-8BB0-CDE636C4F154}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{12A878DA-2BBE-4BD0-AFCD-3FAFAC49C09C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{6FA4C363-D182-4542-8E8D-B3ADC1C4C5DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPointeuse.Desktop", "NPointeuse.Desktop\NPointeuse.Desktop.csproj", "{7DC6D98A-558A-4D8B-940C-0BEDE10907FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +49,6 @@ Global
 		{D5373C28-94E5-4834-BD5E-F35C26999FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5373C28-94E5-4834-BD5E-F35C26999FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5373C28-94E5-4834-BD5E-F35C26999FDB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE6661F4-3CC0-4E5E-ACE9-C07C5D10D697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE6661F4-3CC0-4E5E-ACE9-C07C5D10D697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE6661F4-3CC0-4E5E-ACE9-C07C5D10D697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE6661F4-3CC0-4E5E-ACE9-C07C5D10D697}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,9 +57,20 @@ Global
 		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9552ED86-B34F-432E-8BB0-CDE636C4F154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC6D98A-558A-4D8B-940C-0BEDE10907FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC6D98A-558A-4D8B-940C-0BEDE10907FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC6D98A-558A-4D8B-940C-0BEDE10907FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC6D98A-558A-4D8B-940C-0BEDE10907FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5D9D7F2-70C9-4D2C-B63D-26F936E46C8A} = {12A878DA-2BBE-4BD0-AFCD-3FAFAC49C09C}
+		{09EC7046-57CF-489A-9EED-163797EF0595} = {12A878DA-2BBE-4BD0-AFCD-3FAFAC49C09C}
+		{D5373C28-94E5-4834-BD5E-F35C26999FDB} = {6FA4C363-D182-4542-8E8D-B3ADC1C4C5DB}
+		{FD32DDF8-94D2-47C9-A40D-5CA4ADDDA744} = {6FA4C363-D182-4542-8E8D-B3ADC1C4C5DB}
+		{9552ED86-B34F-432E-8BB0-CDE636C4F154} = {12A878DA-2BBE-4BD0-AFCD-3FAFAC49C09C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {067805E3-F63A-4D44-A4DC-48AF78DFFFB7}

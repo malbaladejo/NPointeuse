@@ -8,12 +8,14 @@ namespace NPointeuse.Services.LocalFile.Impl
     internal class LocalFileStandardExpectedTimeDataService : IStandardExpectedTimeDataService
     {
         private readonly IDirectoryManager directoryManager;
+        private readonly ISerializer serializer;
         private readonly string filePath;
         private IReadOnlyDictionary<DayOfWeek, TimeSpan> durations;
 
-        public LocalFileStandardExpectedTimeDataService(IDirectoryManager directoryManager)
+        public LocalFileStandardExpectedTimeDataService(IDirectoryManager directoryManager, ISerializer serializer)
         {
             this.directoryManager = directoryManager;
+            this.serializer = serializer;
             this.filePath = this.GetFilePath();
             this.EnsureDurations();
         }
@@ -32,8 +34,7 @@ namespace NPointeuse.Services.LocalFile.Impl
                 return;
             }
 
-            var json = File.ReadAllText(this.filePath);
-            this.durations = JsonSerializer.Deserialize<Dictionary<DayOfWeek, TimeSpan>>(json);
+            this.durations = this.serializer.Deserialize<Dictionary<DayOfWeek, TimeSpan>>(this.filePath);
         }
 
         private void EnsureDefaultDurations()
@@ -53,8 +54,7 @@ namespace NPointeuse.Services.LocalFile.Impl
 
         private void SaveDurations()
         {
-            File.WriteAllText(this.filePath, JsonSerializer.Serialize(this.durations,
-                new JsonSerializerOptions { WriteIndented = true })); ;
+            this.serializer.Serialize(this.durations, this.filePath);
         }
 
         public void Save(IReadOnlyDictionary<DayOfWeek, TimeSpan> durations)

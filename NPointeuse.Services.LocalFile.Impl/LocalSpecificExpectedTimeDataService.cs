@@ -9,18 +9,20 @@ namespace NPointeuse.Services.LocalFile.Impl
     internal class LocalSpecificExpectedTimeDataService : ISpecificExpectedTimeDataService
     {
         private readonly IDirectoryManager directoryManager;
+        private readonly ISerializer serializer;
         private readonly string filePath;
         private List<SpecificExpectedTime> durations;
 
-        public LocalSpecificExpectedTimeDataService(IDirectoryManager directoryManager)
+        public LocalSpecificExpectedTimeDataService(IDirectoryManager directoryManager, ISerializer serializer)
         {
             this.directoryManager = directoryManager;
+            this.serializer = serializer;
             this.filePath = this.GetFilePath();
             this.EnsureDurations();
         }
 
         public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate)
-            => this.durations.Where(d => beginDate <= d.Date && d.Date <= endDate).ToArray();
+            => this.durations.Where(d => beginDate.BeginOfDay() <= d.Date && d.Date <= endDate.EndOfDay()).ToArray();
 
         private string GetFilePath() => Path.Combine(this.directoryManager.GetFolderPath(), "specific.json");
 
@@ -32,16 +34,14 @@ namespace NPointeuse.Services.LocalFile.Impl
             {
                 this.durations = new List<SpecificExpectedTime>();
                 return;
-            }
-
-            var json = File.ReadAllText(this.filePath);
-            this.durations = JsonSerializer.Deserialize<List<SpecificExpectedTime>>(json);
+            }            
+            
+            this.durations = this.serializer.Deserialize<List<SpecificExpectedTime>>(this.filePath);
         }
 
         private void SaveDurations()
         {
-            File.WriteAllText(this.filePath, JsonSerializer.Serialize(this.durations,
-                new JsonSerializerOptions { WriteIndented = true }));
+            this.serializer.Serialize(this.durations,this.filePath);
         }
 
         public void Save(SpecificExpectedTime time)
@@ -49,6 +49,7 @@ namespace NPointeuse.Services.LocalFile.Impl
             if (time.Id != null) return;
 
             time.Id = DateTime.Now.Ticks;
+            time.Date = time.Date.BeginOfDay();
             this.durations.Add(time);
 
             this.SaveDurations();

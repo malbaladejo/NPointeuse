@@ -17,6 +17,8 @@ namespace NPointeuse.Services.LocalFile.Impl
             this.container.RegisterSingleton<ITimeDataService, LocalFileTimeDataService>();
             this.container.RegisterSingleton<ISpecificExpectedTimeDataService, LocalSpecificExpectedTimeDataService>();
             this.container.RegisterSingleton<IStandardExpectedTimeDataService, LocalFileStandardExpectedTimeDataService>();
+
+            this.container.Register<ISerializer, JsonSerializerFacade>();
         }
     }
 }
