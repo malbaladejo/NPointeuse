@@ -10,8 +10,8 @@ namespace NPointeuse
     {
         public IContainer Initialize()
         {
-            var simpleInjectBootstrapper = new UnityBootstrapper();
-            var container = simpleInjectBootstrapper.Initialize();
+            var bootstrapper = new UnityBootstrapper();
+            var container = bootstrapper.Initialize();
             
             container.GetInstance<ServiceBootstrapper>().Initialize();
             //   container.GetInstance<ServiceMockBootstrapper>().Initialize();

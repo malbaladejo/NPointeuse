@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NPointeuse.XF.Views.Home"
+             mc:Ignorable="d"
+             x:Class="NPointeuse.XF.Views.Home.HomePage"
+             Title="Home">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Command="{Binding OpenReportedTimesCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid BackgroundColor="{StaticResource LightPrimaryColor}"
+                  HeightRequest="200"
+                  VerticalOptions="Start">
+                <Image Source="home_background.png" Opacity="0.3"/>
+            </Grid>         
+
+            <StackLayout>
+
+                <StackLayout HorizontalOptions="Center" >
+                    <Grid Margin="0,40,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0">
+                            <Label Text="{Binding TodayTime.Time}"
+                                   FontSize="60"
+                                   Style="{StaticResource LabelLightPrimary}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Current"
+                                   HorizontalOptions="Center"
+                                   Style="{StaticResource LabelLightPrimary}"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="1">
+                            <Label Text="{Binding TodayTime.ExpectedTime}"                                   
+                                   FontSize="60"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource LabelLightPrimary}"/>
+
+                            <Label Text="Left"
+                                   HorizontalOptions="Center"
+                                   Style="{StaticResource LabelLightPrimary}"/>
+                        </StackLayout>
+                    </Grid>
+                   
+
+                   
+                </StackLayout>
+
+                <Frame HorizontalOptions="Center"
+                       Margin="20"    
+                       Padding="0"
+                       HasShadow="True"                        
+                       BackgroundColor="{StaticResource BackgroundColor}">
+                    <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                            <StackLayout Grid.Column="0" 
+                                         Margin="5,5,0,5"
+                                        HorizontalOptions="Center">
+
+                                <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding WeekTime.Time}"
+                                       FontSize="25" Margin="0,0,10,0"/>
+
+                                    <Label Text="{Binding WeekTime.ExpectedTime}"
+                                       FontSize="25"/>
+                                </StackLayout>
+                                <Label Text="Week" 
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+
+                            <BoxView Grid.Column="1" 
+                                     Color="{StaticResource BorderColor}"
+                                     VerticalOptions="Fill"/>
+                        
+                        <StackLayout Grid.Column="2" Margin="5"
+                             HorizontalOptions="Center">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding TwoLastMonthesTime.Time}"
+                                   FontSize="25"
+                                           Margin="0,0,10,0"/>
+
+                                    <Label Text="{Binding TwoLastMonthesTime.ExpectedTime}"
+                                   FontSize="25"/>
+                                </StackLayout>
+
+                                <Label Text="Last two monthes" 
+                           HorizontalOptions="Center"/>
+                        </StackLayout>
+
+                    </Grid>
+                        <Button Text="{Binding ButtonLabel}"
+                                TextColor="White"
+                                FontSize="24"
+                                WidthRequest="200"
+                                BackgroundColor="{Binding IsRunning, Converter={x:Static local:IsRunningToColorConverter.Instance}}"
+                                Command="{Binding ToogleCommand}" />    
+                    </StackLayout>
+                </Frame>               
+        </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

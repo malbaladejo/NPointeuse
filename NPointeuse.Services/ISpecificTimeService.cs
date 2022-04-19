@@ -7,6 +7,8 @@ namespace NPointeuse.Services
     {
         IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate);
 
+        IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(int page, int pageSize);
+
         void Save(SpecificExpectedTime time);
     }
 }

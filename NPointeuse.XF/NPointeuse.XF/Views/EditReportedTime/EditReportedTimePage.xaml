@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:infraXF="clr-namespace:NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF"
+             mc:Ignorable="d"
+             Title="Edit reported time"
+             x:Class="NPointeuse.XF.Views.EditReportedTime.EditReportedTimePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}" />
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}" />
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Begin" />
+                    <Entry Text="{Binding BeginDate}" WidthRequest="160" />
+                </StackLayout>
+                <Label Text="{Binding Errors, 
+                                      Converter={x:Static infraXF:ValidationIssuesToStringConverter.Instance},
+                                      ConverterParameter=BeginDate}" 
+                       IsVisible="{Binding Errors, 
+                                      Converter={x:Static infraXF:ValidationIssuesToBooleanConverter.Instance},
+                                      ConverterParameter=BeginDate}"
+                       TextColor="Red"/>
+            </StackLayout>
+
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="End" />
+                    <Entry Text="{Binding EndDate}" WidthRequest="160" />
+                </StackLayout>
+                <Label Text="{Binding Errors, 
+                                      Converter={x:Static infraXF:ValidationIssuesToStringConverter.Instance},
+                                      ConverterParameter=EndDate}" 
+                       IsVisible="{Binding Errors, 
+                                      Converter={x:Static infraXF:ValidationIssuesToBooleanConverter.Instance},
+                                      ConverterParameter=EndDate}"
+                       TextColor="Red"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

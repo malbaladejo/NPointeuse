@@ -10,6 +10,11 @@ namespace NPointeuse.Services.Mock
         public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(DateTime beginDate, DateTime endDate)
         => this.times;
 
+        public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save(SpecificExpectedTime time)
         {
             if (time.Id != null) return;

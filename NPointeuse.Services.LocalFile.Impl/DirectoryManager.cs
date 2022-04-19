@@ -16,8 +16,8 @@ namespace NPointeuse.Services.LocalFile.Impl
                 var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 this.currentNPointeuseDataPath = Path.Combine(appDataPath, nPointeuseDataPath, version);
 
-                this.EnsureAppDataFolder(currentNPointeuseDataPath);
-            }
+                this.EnsureAppDataFolder(this.currentNPointeuseDataPath);
+             }
 
             return currentNPointeuseDataPath;
         }

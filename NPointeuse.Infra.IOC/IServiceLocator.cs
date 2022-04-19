@@ -1,4 +1,6 @@
-﻿namespace NPointeuse.Infra.IOC
+﻿using System;
+
+namespace NPointeuse.Infra.IOC
 {
     public interface IServiceLocator
     {

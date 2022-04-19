@@ -26,7 +26,7 @@ namespace NPointeuse.Services.Mock
             }
 
             var today = DateTime.Now.AddHours(-5);
-            times.Add(new DateRange { Id = id, BeginDate = today, EndDate = today.AddMinutes(5*60 + 12) });
+            times.Add(new DateRange { Id = id, BeginDate = today, EndDate = today.AddMinutes(5 * 60 + 12) });
         }
 
         public IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime)
@@ -52,6 +52,18 @@ namespace NPointeuse.Services.Mock
         }
 
         public DateTime? PendingTime() => this.pendingTime;
+
+        public void Save(DateRange dateRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<DateRange> GetDateRanges(int page, int pageSize)
+            => this.times.Skip(page * pageSize).Take(pageSize).ToArray();
+
+        public void Delete(DateRange dateRange)
+        {
+            throw new NotImplementedException();
+        }
     }
-    
 }

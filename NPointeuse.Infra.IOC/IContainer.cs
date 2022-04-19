@@ -6,6 +6,8 @@ namespace NPointeuse.Infra.IOC
     {
         TService GetInstance<TService>() where TService : class;
 
+        object GetInstance(Type type);
+
         void Register(Type concreteType);
 
         void Register(Type serviceType, Type implementationType);

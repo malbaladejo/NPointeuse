@@ -54,5 +54,10 @@ namespace NPointeuse.Services.LocalFile.Impl
 
             this.SaveDurations();
         }
+
+        public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

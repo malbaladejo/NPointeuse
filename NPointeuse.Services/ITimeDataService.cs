@@ -5,8 +5,15 @@ namespace NPointeuse.Services
 {
     public interface ITimeDataService {
         IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime);
+
+        IReadOnlyCollection<DateRange> GetDateRanges(int page, int pageSize);
+
         void Start();
         void Stop();
+
+        void Save(DateRange dateRange);
+
+        void Delete(DateRange dateRange);
 
         DateTime? PendingTime();
     }

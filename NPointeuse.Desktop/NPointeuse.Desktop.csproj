@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NPointeuse.Infra.IOC.Unity\NPointeuse.Infra.IOC.Unity.csproj" />
     <ProjectReference Include="..\NPointeuse.Infra.IOC\NPointeuse.Infra.IOC.csproj" />
     <ProjectReference Include="..\NPointeuse.Services.LocalFile.Impl\NPointeuse.Services.LocalFile.Impl.csproj" />

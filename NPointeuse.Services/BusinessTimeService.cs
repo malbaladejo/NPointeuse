@@ -26,22 +26,20 @@ namespace NPointeuse.Services
 
         public TimeSpan GetLastTwoMontesDuration() => this.GetDurations(DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
 
-        public TimeSpan GetTodayExpectedTime()
-        {
-            return this.GetExpectedTime(DateTime.Today, DateTime.Today.EndOfDay());
-        }
+        public TimeSpan GetTodayExpectedTime() => this.GetExpectedTime(DateTime.Today, DateTime.Today.EndOfDay());
 
-        public TimeSpan GetCurrentWeekExpectedTime() => this.GetExpectedTime(FirstDayOfWeek, DateTime.Today.EndOfDay());
+        public TimeSpan GetCurrentWeekExpectedTime() => this.GetExpectedTime(FirstDayOfWeek, DateTime.Today.LastDayOfWeek().EndOfDay());
 
         public TimeSpan GetLastTwoMonthesExpectedTime()
         {
             var endDate = DateTime.Today.EndOfDay();
             var twoMonthesAgo = DateTime.Today.AddMonths(-2);
 
-            var beginRealDate = this.timeDataService.GetDateRangeForPeriod(twoMonthesAgo, endDate)
-                        .Min(d => d.BeginDate);
+            var times = this.timeDataService.GetDateRangeForPeriod(twoMonthesAgo, endDate).ToArray();
 
-            var beginDate = twoMonthesAgo < beginRealDate ? twoMonthesAgo : beginRealDate;
+            var beginRealDate = times.Length > 0 ? times.Min(d => d.BeginDate) : DateTime.Today;
+
+            var beginDate = twoMonthesAgo > beginRealDate ? twoMonthesAgo : beginRealDate;
             return this.GetExpectedTime(beginDate, endDate);
         }
 

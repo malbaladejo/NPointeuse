@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:infraXF="clr-namespace:NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF"
+             x:Class="NPointeuse.XF.Views.StandardExpected.StandardExpectedPage"
+             Title="Standard expeted times">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding DayViewModels}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding DayOfWeek}" />
+                                    <Entry x:Name="entry" Text="{Binding Duration}" />
+                                </StackLayout>
+                                <Label Text="{Binding Errors, 
+                                          Converter={x:Static infraXF:ValidationIssuesToStringConverter.Instance},
+                                          ConverterParameter=Duration}" 
+                                        IsVisible="{Binding Errors, 
+                                                        Converter={x:Static infraXF:ValidationIssuesToBooleanConverter.Instance},
+                                                        ConverterParameter=Duration}"
+                                        TextColor="Red"/>  
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

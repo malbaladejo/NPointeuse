@@ -32,8 +32,7 @@ namespace NPointeuse.Services.LocalFile.Impl
         {
             var dateRange = new DateRange
             {
-                BeginDate = DateTime.Now,
-                Id = DateTime.Now.Ticks
+                BeginDate = DateTime.Now
             };
 
             this.dateRanges.Add(dateRange);
@@ -58,12 +57,38 @@ namespace NPointeuse.Services.LocalFile.Impl
                 return;
             }
 
-            this.dateRanges = this.serializer.Deserialize<List<DateRange>>(this.filePath);
+            this.dateRanges = this.serializer.Deserialize<List<DateRange>>(this.filePath)
+                .OrderByDescending(d=>d.BeginDate)
+                .ToList();
         }
 
         private void SaveDateRanges()
         {
             this.serializer.Serialize(this.dateRanges, this.filePath);
         }
+
+        public void Save(DateRange dateRange)
+        {
+            var range = this.dateRanges.FirstOrDefault(r => r.Id == dateRange.Id);
+            if (range == null)
+            {
+                this.dateRanges.Add(range);
+            }
+
+            range.BeginDate = dateRange.BeginDate;
+            range.EndDate = dateRange.EndDate;
+
+            this.SaveDateRanges();
+        }
+
+        public void Delete(DateRange dateRange)
+        {
+            this.dateRanges.RemoveAll(r => r.Id == dateRange.Id);
+
+            this.SaveDateRanges();
+        }
+
+        public IReadOnlyCollection<DateRange> GetDateRanges(int page, int pageSize)
+            => this.dateRanges.Skip(page * pageSize).Take(pageSize).ToArray();       
     }
 }

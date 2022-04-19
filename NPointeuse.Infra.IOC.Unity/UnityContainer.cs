@@ -35,6 +35,6 @@ namespace NPointeuse.Infra.IOC.Unity
         public void RegisterSingleton<TService, TImplementation>()
             where TService : class
             where TImplementation : class, TService
-            => this.container.RegisterSingleton<TService, TImplementation>();
+            => this.container.RegisterSingleton<TService, TImplementation>();      
     }
 }
