@@ -59,7 +59,7 @@ namespace NPointeuse.Services.Tests
             Assert.AreEqual(TimeSpan.FromHours(8), duration);
             timeDataService.Received(1).GetDateRangeForPeriod(
                 DateTime.Today.FirstDayOfWeek(),
-                DateTime.Today.LastDayOfWeek().EndOfDay());
+                DateTime.Today.EndOfDay());
         }
 
         [TestMethod()]
@@ -164,8 +164,7 @@ namespace NPointeuse.Services.Tests
             var duration = service.GetCurrentWeekExpectedTime();
 
             // Assert
-            Assert.AreEqual(TimeSpan.FromHours(40), duration);
-            specificService.Received(1).GetExpectedDurations(DateTime.Today.FirstDayOfWeek(), DateTime.Today.LastDayOfWeek().EndOfDay());
+            specificService.Received(1).GetExpectedDurations(DateTime.Today.FirstDayOfWeek(), DateTime.Today.EndOfDay());
         }
 
         [TestMethod()]
@@ -184,8 +183,7 @@ namespace NPointeuse.Services.Tests
             var duration = service.GetCurrentWeekExpectedTime();
 
             // Assert
-            Assert.AreEqual(TimeSpan.FromHours(37), duration);
-            specificService.Received(1).GetExpectedDurations(DateTime.Today.FirstDayOfWeek(), DateTime.Today.LastDayOfWeek().EndOfDay());
+            specificService.Received(1).GetExpectedDurations(DateTime.Today.FirstDayOfWeek(), DateTime.Today.EndOfDay());
         }
 
         [TestMethod()]
@@ -216,7 +214,7 @@ namespace NPointeuse.Services.Tests
             var duration = service.GetLastTwoMonthesExpectedTime();
 
             // Assert
-            specificService.Received(1).GetExpectedDurations(DateTime.Today.AddMonths(-2), DateTime.Today.LastDayOfWeek().EndOfDay());
+            specificService.Received(1).GetExpectedDurations(DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
         }
 
         [TestMethod()]
@@ -235,7 +233,7 @@ namespace NPointeuse.Services.Tests
             var duration = service.GetLastTwoMonthesExpectedTime();
 
             // Assert
-            specificService.Received(1).GetExpectedDurations(DateTime.Today.AddMonths(-2), DateTime.Today.LastDayOfWeek().EndOfDay());
+            specificService.Received(1).GetExpectedDurations(DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
         }
 
         private static BusinessTimeService CreateTimeService(
@@ -269,9 +267,11 @@ namespace NPointeuse.Services.Tests
 
         private static SpecificExpectedTime CreateSpecificExpectedTime(DateTime date, TimeSpan duration)
         {
-            var time = Substitute.For<SpecificExpectedTime>();
-            time.Date.Returns(date);
-            time.Duration.Returns(duration);
+            var time = new SpecificExpectedTime
+            {
+                Date = date,
+                Duration = duration
+            };
             return time;
         }
     }

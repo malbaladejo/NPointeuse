@@ -3,5 +3,6 @@
     public interface IServiceLocator
     {
         TService GetInstance<TService>() where TService : class;
+        object GetInstance(Type type);
     }
 }

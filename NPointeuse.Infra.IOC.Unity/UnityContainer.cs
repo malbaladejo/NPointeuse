@@ -10,6 +10,9 @@ namespace NPointeuse.Infra.IOC.Unity
         public TService GetInstance<TService>() where TService : class
             => this.container.Resolve<TService>();
 
+        public object GetInstance(Type type)
+            => this.container.Resolve(type);
+
         public void Register(Type concreteType) => this.container.RegisterType(concreteType);
 
         public void Register(Type serviceType, Type implementationType) => this.container.RegisterType(serviceType, implementationType);

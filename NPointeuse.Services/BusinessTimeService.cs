@@ -22,15 +22,28 @@ namespace NPointeuse.Services
 
         public TimeSpan GetTodayDuration() => this.GetDurations(DateTime.Today, DateTime.Today.EndOfDay());
 
-        public TimeSpan GetCurrentWeekDuration() => this.GetDurations(FirstDayOfWeek, LastDayOfWeek);
+        public TimeSpan GetCurrentWeekDuration() => this.GetDurations(FirstDayOfWeek, DateTime.Today.EndOfDay());
 
         public TimeSpan GetLastTwoMontesDuration() => this.GetDurations(DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
 
-        public TimeSpan GetTodayExpectedTime() => this.GetExpectedTime(DateTime.Today, DateTime.Today.EndOfDay());
+        public TimeSpan GetTodayExpectedTime()
+        {
+            return this.GetExpectedTime(DateTime.Today, DateTime.Today.EndOfDay());
+        }
 
-        public TimeSpan GetCurrentWeekExpectedTime() => this.GetExpectedTime(FirstDayOfWeek, LastDayOfWeek);
+        public TimeSpan GetCurrentWeekExpectedTime() => this.GetExpectedTime(FirstDayOfWeek, DateTime.Today.EndOfDay());
 
-        public TimeSpan GetLastTwoMonthesExpectedTime() => this.GetExpectedTime(DateTime.Today.AddMonths(-2), LastDayOfWeek);
+        public TimeSpan GetLastTwoMonthesExpectedTime()
+        {
+            var endDate = DateTime.Today.EndOfDay();
+            var twoMonthesAgo = DateTime.Today.AddMonths(-2);
+
+            var beginRealDate = this.timeDataService.GetDateRangeForPeriod(twoMonthesAgo, endDate)
+                        .Min(d => d.BeginDate);
+
+            var beginDate = twoMonthesAgo < beginRealDate ? twoMonthesAgo : beginRealDate;
+            return this.GetExpectedTime(beginDate, endDate);
+        }
 
         public bool IsRunning() => this.timeDataService.PendingTime().HasValue;
 
@@ -39,7 +52,6 @@ namespace NPointeuse.Services
         public void Stop() => this.timeDataService.Stop();
 
         private static DateTime FirstDayOfWeek => DateTime.Today.FirstDayOfWeek().BeginOfDay();
-        private static DateTime LastDayOfWeek => DateTime.Today.LastDayOfWeek().EndOfDay();
 
         private TimeSpan GetDurations(DateTime beginDate, DateTime endDate)
         {

@@ -17,6 +17,7 @@ namespace NPointeuse
             WriteLine("***************");
             WriteLine("*  Pointeuse  *");
             WriteLine("***************");
+            WriteLine("");
         }
         public void WriteStatus(IBusinessTimeService timeDataService)
         {
@@ -27,7 +28,7 @@ namespace NPointeuse
             else
                 WriteRed("Stopped");
 
-            Console.WriteLine("");
+            WriteLine("");
         }
 
         public void WriteQuestion(IBusinessTimeService timeService)
@@ -65,6 +66,7 @@ namespace NPointeuse
             WriteRemainingTime(leftTime);
             Console.WriteLine("");
             this.consoleProgressBar.Write(currentTime, expectedTime);
+            WriteLine("");
         }
 
         private static void WriteTime(TimeSpan time)

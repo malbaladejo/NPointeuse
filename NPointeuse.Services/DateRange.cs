@@ -27,12 +27,6 @@ namespace NPointeuse.Services
                     throw new ArgumentOutOfRangeException("End date must greater than begin date.");
                 endDate = value;
             }
-        }
-
-        private DateTime CurrentEndDate
-            => this.EndDate.HasValue ? this.EndDate.Value : DateTime.Now;
-
-        public TimeSpan GetDuration()
-            => this.CurrentEndDate - this.BeginDate;
+        }       
     }
 }
