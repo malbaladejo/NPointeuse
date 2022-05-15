@@ -16,5 +16,10 @@ namespace NPointeuse.XF.Views.SpecficExpected
         {
             InitializeComponent();
         }
+
+        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+           ((ISpecficExpectedTimeViewModel)e.Item).EditCommand.Execute(null);
+        }
     }
 }

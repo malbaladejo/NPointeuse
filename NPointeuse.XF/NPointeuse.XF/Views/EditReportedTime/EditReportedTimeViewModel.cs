@@ -13,10 +13,11 @@ namespace NPointeuse.XF.Views.EditReportedTime
         private readonly INavigationService navigationService;
         private DateRange dateRange;
         private Regex DateRegex = new Regex("[0-9]{2}\\/[0-9]{2}\\/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}");
+        private readonly DelegateCommand saveCommand;
 
         public EditReportedTimeViewModel(ITimeDataService timeDataService, INavigationService navigationService)
         {
-            this.SaveCommand = new DelegateCommand(this.Save, this.CanSave);
+            this.saveCommand = new DelegateCommand(this.Save, this.CanSave);
             this.DeleteCommand = new DelegateCommand(this.Delete);
             this.CancelCommand = new DelegateCommand(() => this.navigationService.PopAsync());
             this.timeDataService = timeDataService;
@@ -40,98 +41,42 @@ namespace NPointeuse.XF.Views.EditReportedTime
             this.navigationService.PopAsync();
         }
 
-        public ICommand SaveCommand { get; }
+        public ICommand SaveCommand => this.saveCommand;
         public ICommand DeleteCommand { get; }
         public ICommand CancelCommand { get; }
 
+        private string beginDate;
+        [MandatoryString]
+        [DateValidationAttribute]
+        [DateMaxValidation(nameof(EndDate))]
         public string BeginDate
         {
-            get => this.dateRange.BeginDate.ToString();
+            get => this.beginDate;
             set
             {
-                if (!this.IsBeginDateValid(value, out var date))
+                if (!this.Set(ref this.beginDate, value))
                     return;
 
-                this.dateRange.BeginDate = date;
-                this.RaiseErrorsChanged();
+                this.dateRange.BeginDate = DateTime.Parse(value);
+                this.saveCommand.RaiseCanExecuteChanged();
             }
         }
 
-        private bool IsBeginDateValid(string value, out DateTime date)
-        {
-            this.ClearValidations(nameof(this.BeginDate));
-
-            date = DateTime.Now;
-
-            if (string.IsNullOrEmpty(value))
-            {
-                this.AddValidation("Begin date can not be null.", ValidationSeverity.Error, nameof(this.BeginDate));
-                return false;
-            }
-
-            if (!this.DateRegex.IsMatch(value))
-            {
-                this.AddValidation("Incorrect format. Must be dd/mm/yyyy hh:mm", ValidationSeverity.Error, nameof(this.BeginDate));
-                return false;
-            }
-            
-            if (!DateTime.TryParse(value, out date))
-            {
-                this.AddValidation("Incorrect format. Must be dd/mm/yyyy hh:mm", ValidationSeverity.Error, nameof(this.BeginDate));
-                return false;
-            }
-
-            if (this.dateRange.EndDate.HasValue && this.dateRange.EndDate.Value < date)
-            {
-                this.AddValidation("Begin date must be lower than end date", ValidationSeverity.Error, nameof(this.BeginDate));
-                return false;
-            }
-
-            return true;
-        }
-
+        private string endDate;
+        [MandatoryString]
+        [DateValidationAttribute]
+        [DateMinValidation(nameof(BeginDate))]
         public string EndDate
         {
-            get => this.dateRange.EndDate?.ToString();
+            get => this.endDate;
             set
             {
-                if (!this.IsEndDateValid(value, out var date))
+                if (!this.Set(ref this.endDate, value))
                     return;
 
-                this.dateRange.EndDate = date;
-                this.RaisePropertyChanged();
+                this.dateRange.EndDate = DateTime.Parse(value);
+                this.saveCommand.RaiseCanExecuteChanged();
             }
-        }
-
-        private bool IsEndDateValid(string value, out DateTime? date)
-        {
-            this.ClearValidations(nameof(this.EndDate));
-            date = null;
-            
-            if (string.IsNullOrEmpty(value))
-                return true;
-
-            if (!this.DateRegex.IsMatch(value))
-            {
-                this.AddValidation("Incorrect format. Must be dd/mm/yyyy hh:mm", ValidationSeverity.Error, nameof(this.EndDate));
-                return false;
-            }
-            
-            if (!DateTime.TryParse(value, out var localDate))
-            {
-                this.AddValidation("Incorrect format. Must be dd/mm/yyyy hh:mm", ValidationSeverity.Error, nameof(this.EndDate));
-                return false;
-            }
-
-            date = localDate;
-
-            if (date < this.dateRange.BeginDate)
-            {
-                this.AddValidation("End date must be greater than begin date", ValidationSeverity.Error, nameof(this.EndDate));
-                return false;
-            }
-
-            return true;
         }
 
         public void OnNavigatedFrom(INavigationToken token)
@@ -143,7 +88,9 @@ namespace NPointeuse.XF.Views.EditReportedTime
         {
             var currentToken = (EditReportedTimeNavigationToken)token;
 
-            this.dateRange = currentToken.DateRange;
+            this.dateRange = currentToken.DateRange.Clone();
+            this.beginDate = currentToken.DateRange.BeginDate.ToString();
+            this.endDate = currentToken.DateRange.EndDate.ToString();
         }
     }
 }

@@ -4,41 +4,68 @@ using NPointeuse.Infra.XF;
 using NPointeuse.XF.Views.About;
 using NPointeuse.XF.Views.Configuration;
 using NPointeuse.XF.Views.Home;
-
+using NPointeuse.XF.Views.SpecficExpected;
+using NPointeuse.XF.Views.StandardExpected;
+using System;
 using Xamarin.Forms;
 
 namespace NPointeuse.XF
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-        private readonly IContainer container;
-        private readonly IPageFactory pageFactory;
+        private IContainer container;
+        private IPageFactory pageFactory;
+        private readonly DelegateCommand<INavigationToken> openCommand;
+        private INavigationService navigationService;
+
         public AppShell()
         {
             InitializeComponent();
 
+            this.openCommand = new DelegateCommand<INavigationToken>(this.Open);
+
+            this.InitializeContainer();
+
+            this.AddShelItem(new HomeNavigationToken());
+
+            this.AddMenuItem(new StandardExpectedTimesNavigationToken());
+            this.AddMenuItem(new SpecficExpectedTimesNavigationToken());
+            this.AddMenuItem(new AboutNavigationToken());
+        }
+
+        private void InitializeContainer()
+        {
             var bootstrapper = new Bootstrapper();
 
             this.container = bootstrapper.Initialize();
-
-            this. pageFactory = this.container.GetInstance<IPageFactory>();
-            this.CreateTab(new HomeNavigationToken());
-            this.CreateTab(new ConfigurationNavigationToken());
-            this.CreateTab(new AboutNavigationToken());
+            this.pageFactory = this.container.GetInstance<IPageFactory>();
+            this.navigationService = new NavigationService(this.Navigation, pageFactory);
         }
 
-        private void CreateTab(INavigationToken token)
+        private void Open(INavigationToken token)
         {
-            var home = pageFactory.CreatePage(token );
+            this.FlyoutIsPresented = false;   
+            this.navigationService.PushAsync(token);
+        }
 
-            var shellSection = new ShellSection
+        private void AddShelItem(INavigationToken token)
+        {
+            var page = pageFactory.CreatePage(token);
+
+            this.Items.Add(new ShellContent() { Content = page });
+        }
+
+        private void AddMenuItem(IIconNavigationToken token)
+        {
+            var menuItem = new MenuItem
             {
-                Title = token.Title
+                Text = token.Title,
+                IconImageSource = token.Icon,
+                Command = this.openCommand,
+                CommandParameter = token
             };
 
-            shellSection.Items.Add(new ShellContent() { Content = home });
-
-            tabBar.Items.Add(shellSection);
+            this.Items.Add(menuItem);
         }
     }
 }

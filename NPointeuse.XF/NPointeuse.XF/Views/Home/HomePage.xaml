@@ -39,7 +39,7 @@
                         </StackLayout>
 
                         <StackLayout Grid.Column="1">
-                            <Label Text="{Binding TodayTime.ExpectedTime}"                                   
+                            <Label Text="{Binding TodayTime.RemainingTime}"                                   
                                    FontSize="60"
                                     HorizontalOptions="Center"
                                     Style="{StaticResource LabelLightPrimary}"/>
@@ -48,8 +48,7 @@
                                    HorizontalOptions="Center"
                                    Style="{StaticResource LabelLightPrimary}"/>
                         </StackLayout>
-                    </Grid>
-                   
+                    </Grid>                 
 
                    
                 </StackLayout>
@@ -72,10 +71,11 @@
 
                                 <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding WeekTime.Time}"
-                                       FontSize="25" Margin="0,0,10,0"/>
+                                       FontSize="24" Margin="0,0,8,0"/>
 
-                                    <Label Text="{Binding WeekTime.ExpectedTime}"
-                                       FontSize="25"/>
+                                    <Label Text="{Binding WeekTime.RemainingTime}"
+                                           TextColor="{Binding WeekTime.RemainingTimeColor}"
+                                       FontSize="24"/>
                                 </StackLayout>
                                 <Label Text="Week" 
                                        HorizontalOptions="Center"/>
@@ -89,11 +89,12 @@
                              HorizontalOptions="Center">
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding TwoLastMonthesTime.Time}"
-                                   FontSize="25"
-                                           Margin="0,0,10,0"/>
+                                           FontSize="24"
+                                           Margin="0,0,8,0"/>
 
-                                    <Label Text="{Binding TwoLastMonthesTime.ExpectedTime}"
-                                   FontSize="25"/>
+                                    <Label Text="{Binding TwoLastMonthesTime.RemainingTime}"
+                                           TextColor="{Binding TwoLastMonthesTime.RemainingTimeColor}"
+                                           FontSize="24"/>
                                 </StackLayout>
 
                                 <Label Text="Last two monthes" 

@@ -36,7 +36,9 @@ namespace NPointeuse.Services.LocalFile.Impl
                 return;
             }            
             
-            this.durations = this.serializer.Deserialize<List<SpecificExpectedTime>>(this.filePath);
+            var localDurations = this.serializer.Deserialize<List<SpecificExpectedTime>>(this.filePath);
+
+            this.durations = localDurations.OrderByDescending(d => d.Date).ToList();
         }
 
         private void SaveDurations()
@@ -55,9 +57,16 @@ namespace NPointeuse.Services.LocalFile.Impl
             this.SaveDurations();
         }
 
-        public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(int page, int pageSize)
+        public void Delete(SpecificExpectedTime time)
         {
-            throw new NotImplementedException();
+            if (time.Id == null) return;
+
+            this.durations.RemoveAll(t => t.Id == time.Id);
+
+            this.SaveDurations();
         }
+
+        public IReadOnlyCollection<SpecificExpectedTime> GetExpectedDurations(int page, int pageSize)
+            => this.durations.Skip(page * pageSize).Take(pageSize).ToArray();
     }
 }

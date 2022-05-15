@@ -32,7 +32,7 @@ namespace NPointeuse.XF.Views.ReportedTimes
 
         private void Add()
         {
-            this.navigationService.PushAsync(new EditReportedTimeNavigationToken(new DateRange()));
+            this.navigationService.PushAsync(new EditReportedTimeNavigationToken(new DateRange { BeginDate = DateTime.Now }));
         }
 
         public ICommand CancelCommand { get; }

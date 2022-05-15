@@ -8,28 +8,6 @@ using System.Runtime.CompilerServices;
 
 namespace NPointeuse.Infra.Client
 {
-    public class ValidationIssue
-    {
-        public ValidationIssue(string message, ValidationSeverity severity) : this(null, message, severity)
-        {
-        }
-
-        public ValidationIssue(string propertyName, string message, ValidationSeverity severity)
-        {
-            PropertyName = propertyName;
-            Message = message;
-            Severity = severity;
-        }
-
-        public string PropertyName { get; }
-        public string Message { get; }
-        public ValidationSeverity Severity { get; }
-    }
-
-    public enum ValidationSeverity
-    {
-        Error
-    }
 
     public abstract class ValidatableBase : IValidationAware
     {
@@ -39,10 +17,14 @@ namespace NPointeuse.Infra.Client
         {
             try
             {
+                this.ClearValidations(propertyName);                
+
+                if (!this.ApplyValidations(value, propertyName))
+                    return false;
+
                 if (field?.Equals(value) ?? false)
                     return false;
 
-                this.ApplyValidations(value, propertyName);
                 this.SetField(ref field, value, propertyName);
 
                 return true;
@@ -64,25 +46,37 @@ namespace NPointeuse.Infra.Client
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void ApplyValidations<T>(T value, string propertyName)
+        private bool ApplyValidations<T>(T value, string propertyName)
         {
             var attributes = this.GetValidationAttributes(propertyName).ToArray();
             if (attributes.Length == 0)
-                return;
+                return true;
 
-            ApplyValidations(value, propertyName, attributes);
+           return ApplyValidations(value, propertyName, attributes);
         }
 
-        private void ApplyValidations<T>(T value, string propertyName, ValidationAttribute[] attributes)
+        private bool ApplyValidations<T>(T value, string propertyName, ValidationAttribute[] attributes)
         {
-            foreach (var attribute in attributes)
+            var isValid = true;
+            try
             {
-                var result = attribute.IsValid(this, value);
-                if (!result.IsValid)
-                    this.AddValidation(result.ErrorMessage, ValidationSeverity.Error, propertyName);
+                foreach (var attribute in attributes)
+                {
+                    var result = attribute.IsValid(this, value);
+                    if (!result.IsValid)
+                    {
+                        this.AddValidation(result.ErrorMessage, ValidationSeverity.Error, propertyName);
+                        isValid = false;
+                        if (attribute.QuitOnError)
+                            return false;
+                    }
+                }
             }
-
-            this.RaiseErrorsChanged();
+            finally
+            {
+                this.RaiseErrorsChanged();
+            }
+            return isValid;
         }
 
         public void AddValidation(

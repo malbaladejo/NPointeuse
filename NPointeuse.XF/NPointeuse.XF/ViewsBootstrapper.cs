@@ -33,12 +33,10 @@ namespace NPointeuse.XF
 
             viewContainer.Register<StandardExpectedTimesNavigationToken, StandardExpectedPage, StandardExpectedTimesViewModel>();
 
-            viewContainer.Register<SpecficExpectedTimesNavigationToken, SpecficExpectedTimesPage, SpecficExpectedTimesViewModel>();
-            viewContainer.Register<EditSpecficTimeNavigationToken, EditSpecficTimePage, EditSpecficTimeViewModel>();
-
             viewContainer.Register<AboutNavigationToken, AboutPage, AboutViewModel>();
 
             container.GetInstance<ConfigurationBootstrapper>().Initialize();
+            container.GetInstance<SpecficExpectedTimesBootstrapper>().Initialize();
         }
-    }
+}
 }

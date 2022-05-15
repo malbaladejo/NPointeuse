@@ -6,8 +6,10 @@ using System.Text;
 
 namespace NPointeuse.XF.Views.Configuration
 {
-    internal class ConfigurationNavigationToken : INavigationToken
+    internal class ConfigurationNavigationToken : IIconNavigationToken
     {
         public string Title => "Configuration";
+
+        public string Icon => "icon_gear.png";
     }
 }

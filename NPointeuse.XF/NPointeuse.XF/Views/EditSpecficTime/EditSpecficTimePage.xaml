@@ -1,16 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             Title="Edit specific time"
-             x:Class="NPointeuse.XF.Views.EditSpecficTime.EditSpecficTimePage">
+<ContentPage
+    x:Class="NPointeuse.XF.Views.EditSpecficTime.EditSpecficTimePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:infraXF="clr-namespace:NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF;assembly=NPointeuse.Infra.XF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Edit specific time"
+    mc:Ignorable="d">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding CancelCommand}" Text="Cancel" />
+        <ToolbarItem Command="{Binding DeleteCommand}" Text="Delete" />
+        <ToolbarItem Command="{Binding SaveCommand}" Text="Save" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Edit specfic time"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Date" />
+                    <Entry Text="{Binding Date}" WidthRequest="180" />
+                </StackLayout>
+                <Label
+                    IsVisible="{Binding Errors, Converter={x:Static infraXF:ValidationIssuesToBooleanConverter.Instance}, ConverterParameter=Date}"
+                    Text="{Binding Errors, Converter={x:Static infraXF:ValidationIssuesToStringConverter.Instance}, ConverterParameter=Date}"
+                    TextColor="Red" />
+            </StackLayout>
+
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Duration" />
+                    <Entry Text="{Binding Duration}" WidthRequest="160" />
+                </StackLayout>
+                <Label
+                    IsVisible="{Binding Errors, Converter={x:Static infraXF:ValidationIssuesToBooleanConverter.Instance}, ConverterParameter=Duration}"
+                    Text="{Binding Errors, Converter={x:Static infraXF:ValidationIssuesToStringConverter.Instance}, ConverterParameter=Duration}"
+                    TextColor="Red" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

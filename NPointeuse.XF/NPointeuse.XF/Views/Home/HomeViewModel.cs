@@ -17,36 +17,13 @@ namespace NPointeuse.XF.Views.Home
         private bool isRunning;
         private string buttonLabel;
 
-        public HomeViewModel(IBusinessTimeService businessTimeService, INavigationService navigationService, ITimeDataService timeDataService)
+        public HomeViewModel(IBusinessTimeService businessTimeService, INavigationService navigationService)
         {
             this.businessTimeService = businessTimeService;
             this.navigationService = navigationService;
             this.ToogleCommand = new DelegateCommand(this.Toggle);
             this.OpenReportedTimesCommand = new DelegateCommand(this.OpenReportedTimes);
             var t = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-
-            // DEBUG
-
-            //var times = timeDataService.GetDateRangeForPeriod(DateTime.Today.FirstDayOfWeek(), DateTime.Today.LastDayOfWeek());
-
-
-            //foreach (var time in times)
-            //{
-            //    if (time.Id == 637872479465783290)
-            //    {
-            //        time.BeginDate = new DateTime(2022, 5, 4, 8, 5, 0);
-            //        timeDataService.Save(time);
-            //    }
-            //    if (time.Id == 637872670764888490)
-            //    {
-            //        time.BeginDate = new DateTime(2022, 5, 4, 13, 20, 0);
-            //        timeDataService.Save(time);
-            //    }
-
-            //}
-
-            //time.BeginDate = new DateTime(2022, 5, 3, 13, 10, 0);
         }
 
         private void OpenReportedTimes()
@@ -163,17 +140,5 @@ namespace NPointeuse.XF.Views.Home
         {
             // Nothing to do
         }
-    }
-
-    internal class HomeTime
-    {
-        public HomeTime(TimeSpan time, TimeSpan expectedTime)
-        {
-            Time = time.FormatTime();
-            ExpectedTime = (expectedTime - time).FormatTime();
-        }
-
-        public string Time { get; }
-        public string ExpectedTime { get; }
     }
 }

@@ -22,5 +22,12 @@ namespace NPointeuse.Services.Mock
             time.Id = DateTime.Now.Ticks;
             this.times.Add(time);
         }
+
+        public void Delete(SpecificExpectedTime time)
+        {
+            if (time.Id == null) return;
+
+            this.times.RemoveAll(t=>t.Id == time.Id);
+        }
     }
 }

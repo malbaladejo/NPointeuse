@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace NPointeuse.Infra.XF
 {
-    internal class NavigationService : INavigationService
+    public class NavigationService : INavigationService
     {
         private readonly INavigation navigation;
         private readonly IPageFactory pageFactory;

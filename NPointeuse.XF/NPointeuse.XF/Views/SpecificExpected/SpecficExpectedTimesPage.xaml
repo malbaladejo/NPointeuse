@@ -8,13 +8,14 @@
              Title="Specific times">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
+        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding SpecificExpectedTimes}">
+            <ListView ItemsSource="{Binding SpecificExpectedTimes}" ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                        <TextCell Text="{Binding Date}" Detail="{Binding Duration}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
