@@ -35,12 +35,18 @@ namespace NPointeuse.Infra.XF
 
         private Page CreateView(INavigationToken token)
         {
-            var viewType = viewMapping[token.GetType()];
-            var view = (Page)this.container.GetInstance(viewType);
+            try
+            {
+                var viewType = viewMapping[token.GetType()];
+                var view = (Page)this.container.GetInstance(viewType);
 
-            this.container.RegisterInstance<INavigationService>(new NavigationService(view.Navigation, this));
+                this.container.RegisterInstance<INavigationService>(new NavigationService(view.Navigation, this));
 
-            return view;
+                return view;
+            }catch(Exception e)
+            {
+                throw;
+            }
         }
 
 

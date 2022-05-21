@@ -13,33 +13,24 @@ namespace NPointeuse.XF
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-        private IContainer container;
+        //private IContainer container;
         private IPageFactory pageFactory;
         private readonly DelegateCommand<INavigationToken> openCommand;
         private INavigationService navigationService;
 
-        public AppShell()
+        public AppShell(IPageFactory pageFactory)
         {
             InitializeComponent();
 
+            this.pageFactory = pageFactory;
+            this.navigationService = new NavigationService(this.Navigation, pageFactory);
             this.openCommand = new DelegateCommand<INavigationToken>(this.Open);
-
-            this.InitializeContainer();
 
             this.AddShelItem(new HomeNavigationToken());
 
             this.AddMenuItem(new StandardExpectedTimesNavigationToken());
             this.AddMenuItem(new SpecficExpectedTimesNavigationToken());
             this.AddMenuItem(new AboutNavigationToken());
-        }
-
-        private void InitializeContainer()
-        {
-            var bootstrapper = new Bootstrapper();
-
-            this.container = bootstrapper.Initialize();
-            this.pageFactory = this.container.GetInstance<IPageFactory>();
-            this.navigationService = new NavigationService(this.Navigation, pageFactory);
         }
 
         private void Open(INavigationToken token)
