@@ -1,17 +1,14 @@
-﻿using System;
-using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-
-namespace NPointeuse.XF.ViewModels
+﻿namespace NPointeuse.XF.ViewModels
 {
-    internal class AboutViewModel : BaseViewModel
+    internal class AboutViewModel
     {
         public AboutViewModel()
         {
             Title = "About";
             this.Version = this.GetType().Assembly.GetName().Version.ToString();
         }
+
+        public string Title { get; set; }
 
         public string Version { get; }
     }
