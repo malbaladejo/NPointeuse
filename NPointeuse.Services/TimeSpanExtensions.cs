@@ -9,10 +9,7 @@ namespace NPointeuse.Services
             var totalMinutes = time.TotalMinutes;
             var totalMinutesAbs = Math.Abs(totalMinutes);
             var minus = totalMinutes < 0 ? "-" : string.Empty;
-            return $"{minus}{FormatMinutes((int)(totalMinutesAbs / 60))}:{FormatMinutes((int)(totalMinutesAbs % 60))}";
+            return $"{minus}{((int)(totalMinutesAbs / 60)).FormatNumber()}:{((int)(totalMinutesAbs % 60)).FormatNumber()}";
         }
-
-        private static string FormatMinutes(int minutes)
-               => minutes.ToString().PadLeft(2, '0');
     }
 }

@@ -23,6 +23,7 @@ namespace NPointeuse.XF.Views.Home
             this.navigationService = navigationService;
             this.ToogleCommand = new DelegateCommand(this.Toggle);
             this.OpenReportedTimesCommand = new DelegateCommand(this.OpenReportedTimes);
+            this.OpenReportedTimesCommand2 = new DelegateCommand(this.OpenReportedTimes2);
             var t = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         }
 
@@ -31,7 +32,14 @@ namespace NPointeuse.XF.Views.Home
             this.navigationService.PushAsync(new ReportedTimesNavigationToken());
         }
 
+        private void OpenReportedTimes2()
+        {
+            this.navigationService.PushAsync(new ReportedTimesNavigationToken2());
+        }
+
         public ICommand OpenReportedTimesCommand { get; }
+
+        public ICommand OpenReportedTimesCommand2 { get; }
 
         public bool IsRunning
         {
@@ -73,7 +81,6 @@ namespace NPointeuse.XF.Views.Home
         }
 
         public ICommand ToogleCommand { get; }
-
 
         private void Toggle()
         {
@@ -128,7 +135,7 @@ namespace NPointeuse.XF.Views.Home
         {
             this.TodayTime = new HomeTime(businessTimeService.GetTodayDuration(), businessTimeService.GetTodayExpectedTime());
             this.WeekTime = new HomeTime(businessTimeService.GetCurrentWeekDuration(), businessTimeService.GetCurrentWeekExpectedTime());
-            this.TwoLastMonthesTime = new HomeTime(businessTimeService.GetLastTwoMontesDuration(), businessTimeService.GetLastTwoMonthesExpectedTime());
+            this.TwoLastMonthesTime = new HomeTime(businessTimeService.GetAllTimesDuration(), businessTimeService.GetAllTimesExpectedTime());
         }
 
         public void OnNavigatedTo(INavigationToken token)

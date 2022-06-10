@@ -16,3 +16,4 @@ namespace NPointeuse.Services
         public static bool IsPending(this DateRange date) => date.EndDate == null;
     }
 }
+

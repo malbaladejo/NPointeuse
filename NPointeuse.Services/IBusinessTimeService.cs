@@ -8,17 +8,24 @@ namespace NPointeuse.Services
         void Stop();
 
         bool IsRunning();
+        // TimeSpan GetDurations(DateTime beginDate, DateTime endDate);
 
         TimeSpan GetTodayDuration();
 
-        TimeSpan GetTodayExpectedTime();
-
         TimeSpan GetCurrentWeekDuration();
-
-        TimeSpan GetCurrentWeekExpectedTime();
 
         TimeSpan GetLastTwoMontesDuration();
 
+        TimeSpan GetAllTimesDuration();
+
+       // TimeSpan GetExpectedTime(DateTime beginDate, DateTime endDate);
+
+        TimeSpan GetTodayExpectedTime();
+
+        TimeSpan GetCurrentWeekExpectedTime();
+
         TimeSpan GetLastTwoMonthesExpectedTime();
+
+        TimeSpan GetAllTimesExpectedTime();
     }
 }

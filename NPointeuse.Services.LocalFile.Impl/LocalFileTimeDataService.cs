@@ -22,6 +22,11 @@ namespace NPointeuse.Services.LocalFile.Impl
             this.EnsureDateRanges();
         }
 
+        public DateRange GetFirstDateRange()
+        {
+            return this.dateRanges.OrderBy(d => d.BeginDate).First();
+        }
+
         public IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime)
             => this.dateRanges.Where(d => d.Overlap(beginDateTime.BeginOfDay(), endDateTime.EndOfDay()))
                               .ToArray();
@@ -58,7 +63,7 @@ namespace NPointeuse.Services.LocalFile.Impl
             }
 
             this.dateRanges = this.serializer.Deserialize<List<DateRange>>(this.filePath)
-                .OrderByDescending(d=>d.BeginDate)
+                .OrderByDescending(d => d.BeginDate)
                 .ToList();
         }
 
@@ -89,6 +94,6 @@ namespace NPointeuse.Services.LocalFile.Impl
         }
 
         public IReadOnlyCollection<DateRange> GetDateRanges(int page, int pageSize)
-            => this.dateRanges.Skip(page * pageSize).Take(pageSize).ToArray();       
+            => this.dateRanges.Skip(page * pageSize).Take(pageSize).ToArray();
     }
 }

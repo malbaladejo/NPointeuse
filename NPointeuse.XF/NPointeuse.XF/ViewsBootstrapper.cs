@@ -28,7 +28,6 @@ namespace NPointeuse.XF
         {
             viewContainer.Register<HomeNavigationToken, HomePage, HomeViewModel>();
 
-            viewContainer.Register<ReportedTimesNavigationToken, ReportedTimesPage, ReportedTimesViewModel>();
             viewContainer.Register<EditReportedTimeNavigationToken, EditReportedTimePage, EditReportedTimeViewModel>();
 
             viewContainer.Register<StandardExpectedTimesNavigationToken, StandardExpectedPage, StandardExpectedTimesViewModel>();
@@ -37,6 +36,7 @@ namespace NPointeuse.XF
 
             container.GetInstance<ConfigurationBootstrapper>().Initialize();
             container.GetInstance<SpecficExpectedTimesBootstrapper>().Initialize();
+            container.GetInstance<ReportedTimesBootstrapper>().Initialize();
         }
-}
+    }
 }

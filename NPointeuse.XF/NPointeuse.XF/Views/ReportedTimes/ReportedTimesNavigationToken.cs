@@ -7,4 +7,9 @@ namespace NPointeuse.XF.Views.ReportedTimes
     {
         public string Title => "Reported times";
     }
+
+    internal class ReportedTimesNavigationToken2 : INavigationToken
+    {
+        public string Title => "Reported times";
+    }
 }

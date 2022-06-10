@@ -4,6 +4,8 @@ using System.Collections.Generic;
 namespace NPointeuse.Services
 {
     public interface ITimeDataService {
+        DateRange GetFirstDateRange();
+        
         IReadOnlyCollection<DateRange> GetDateRangeForPeriod(DateTime beginDateTime, DateTime endDateTime);
 
         IReadOnlyCollection<DateRange> GetDateRanges(int page, int pageSize);

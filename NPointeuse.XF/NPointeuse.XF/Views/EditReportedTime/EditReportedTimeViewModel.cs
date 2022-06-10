@@ -46,6 +46,7 @@ namespace NPointeuse.XF.Views.EditReportedTime
         public ICommand CancelCommand { get; }
 
         private string beginDate;
+
         [MandatoryString]
         [DateValidationAttribute]
         [DateMaxValidation(nameof(EndDate))]
@@ -63,7 +64,7 @@ namespace NPointeuse.XF.Views.EditReportedTime
         }
 
         private string endDate;
-        [MandatoryString]
+
         [DateValidationAttribute]
         [DateMinValidation(nameof(BeginDate))]
         public string EndDate

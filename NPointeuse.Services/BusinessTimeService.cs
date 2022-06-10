@@ -26,6 +26,14 @@ namespace NPointeuse.Services
 
         public TimeSpan GetLastTwoMontesDuration() => this.GetDurations(DateTime.Today.AddMonths(-2), DateTime.Today.EndOfDay());
 
+        public TimeSpan GetAllTimesDuration()
+        {
+            var firstDateRange = this.timeDataService.GetFirstDateRange();
+            var beginDate = firstDateRange.BeginDate.BeginOfDay();
+            var endDate = DateTime.Today.EndOfDay();
+            return this.GetDurations(beginDate, endDate); 
+        }
+
         public TimeSpan GetTodayExpectedTime() => this.GetExpectedTime(DateTime.Today, DateTime.Today.EndOfDay());
 
         public TimeSpan GetCurrentWeekExpectedTime() => this.GetExpectedTime(FirstDayOfWeek, DateTime.Today.LastDayOfWeek().EndOfDay());
@@ -43,6 +51,14 @@ namespace NPointeuse.Services
             return this.GetExpectedTime(beginDate, endDate);
         }
 
+        public TimeSpan GetAllTimesExpectedTime()
+        {
+            var firstDateRange = this.timeDataService.GetFirstDateRange();
+            var beginDate = firstDateRange.BeginDate.BeginOfDay();
+            var endDate = DateTime.Today.EndOfDay();
+            return this.GetExpectedTime(beginDate, endDate); 
+        }
+
         public bool IsRunning() => this.timeDataService.PendingTime().HasValue;
 
         public void Start() => this.timeDataService.Start();
@@ -51,7 +67,7 @@ namespace NPointeuse.Services
 
         private static DateTime FirstDayOfWeek => DateTime.Today.FirstDayOfWeek().BeginOfDay();
 
-        private TimeSpan GetDurations(DateTime beginDate, DateTime endDate)
+        internal TimeSpan GetDurations(DateTime beginDate, DateTime endDate)
         {
             var ticks = this.timeDataService.GetDateRangeForPeriod(beginDate, endDate)
                                         .Sum(d => d.GetDuration().Ticks);

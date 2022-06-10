@@ -65,5 +65,10 @@ namespace NPointeuse.Services.Mock
         {
             throw new NotImplementedException();
         }
+
+        public DateRange GetFirstDateRange()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
